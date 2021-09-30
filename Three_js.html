@@ -32,7 +32,6 @@ function cubo(x,y,z,px, py, pz, material, color, wf)
 		cube = new THREE.Mesh(geometry, material);
 		scene.add(cube);
 		cube.position.set(px, py, pz);
-		cube.translateX(2).translateY(2).translateZ(2);
 	    return cube;
 }
 function init() 
@@ -41,17 +40,21 @@ function init()
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     scene = new THREE.Scene();
-	cubo1= new cubo(1,1,1,0,0,0, 'basic', 'blue', 'false');
-	cubo2= new cubo(1,1,1,0,0,0, 'basic', 'red', 'false');
-	cubo3= new cubo(1,1,1,0,0,0, 'basic', 'green', 'false');
-	cubo1.translateX(5);
-	cubo2.translateY(5);
-	cubo3.translateZ(5);
+	var arrCube= [];
+	var t = 1;
+	for (var i=0; i < 3; i++)
+	{
+		d = t * 1.05
+		arrCube.push(cubo(t,t,t, 0, 0, 0, 'basic', (i==0? 'red': i==1? 'green':'blue'), false));
+		arrCube[i].geometry.translate((i==0)*d, (i==1)*d, (i==2)*d)
+	}
 	const axesHelper= new THREE.AxesHelper(10);
 	scene.add(axesHelper);
 	
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(6,6,6);
+
+	
     camera.lookAt(arrCube[0].position);
     clock = new THREE.Clock();
     window.addEventListener('resize', onWindowResize, false);
