@@ -33,7 +33,8 @@ function cubo(x, y, z, px, py, pz, material, color, wf) {
     return cube;
 }
 
-function init() {
+function init() 
+{
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth*0.99, window.innerHeight*0.99);
     document.body.appendChild(renderer.domElement);
@@ -41,7 +42,8 @@ function init() {
     var arrCube = [];
 
     var t = 2.2;
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 3; i++) 
+	{
         d = t * 1.05
         arrCube.push(cubo(t, t, t, 0, 0, 0, 'Basic', (i==0 ? 'red': i==1 ? 'green' : 'blue'), false));
         
@@ -53,7 +55,17 @@ function init() {
             arrCube[i].geometry.translate(0, 0, d)*/
 
         arrCube[i].geometry.translate((i==0)*d, (i==1)*d, (i==2)*d)
-		arrCube[i].geometry.rotateX(Math.PI / 2);
+		if(i==0)
+		{
+		arrCube[0].geometry.rotateZ(Math.PI / 2)
+		}else
+		if (i==1)
+		{
+		arrCube[1].geometry.rotateX(Math.PI / 2)
+		}else
+		arrCube[2].geometry.rotateY(Math.PI / 2)
+		
+		
     }
 
 
